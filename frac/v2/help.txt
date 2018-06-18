@@ -1,0 +1,10 @@
+This is the terminal. Here you can write different commands to change the parameters for yor fractal.
+help - displays the help page for the terminal
+exit - exits the terminal 
+quit - quits the window
+points - sets the point ammount. takes as input an integer
+reset - resets the saved fractal points
+fractal-points - sets the ammount of points added
+radius - sets the radius for points
+pos - sets the position of the fractals center
+window-size - sets the window size for the window
