@@ -39,6 +39,16 @@ def get_angle(x1, y1, x2, y2):
 
 class fractal:
 
+    surface = None
+
+    Xfractal = []
+    Yfractal = []
+    fractal_points = 0
+
+    Xpoints = []
+    Ypoints = []
+    points = 0
+    x, y = 0, 0
 
     def __init__(self, sc, x, y, p, r, fr_p):
         self.surface = sc
@@ -46,47 +56,50 @@ class fractal:
         self.y = y
         self.points = p
         self.radius = r
-        self.x_fractal, self.y_fractal = [x], [y]
-        self.x_points, self.y_points = generate_points(x, y, p, r)
+        self.Xfractal.append(x)
+        self.Yfractal.append(y)
         self.fractal_points = fr_p
-        self.top = 1
-        self.bot = 2
+        self.Xpoints, self.Ypoints = generate_points(x, y, p, r)
 
-    def get_frac_points(self):
-        for i in range(self.fractal_points):
-            n = random.randint(0, self.points-1)
-            a = get_angle(self.x_fractal[-1], self.y_fractal[-1], self.x_points[n], self.y_points[n])
-            while a == None:
-                n = random.randint(0, self.points-1)
-                a = get_angle(self.x_fractal[-1], self.y_fractal[-1], self.x_points[n], self.y_points[n])
-            d = get_distance(self.x_fractal[-1], self.y_fractal[-1], self.x_points[n], self.y_points[n])
-            d = self.top*d / self.bot
-            x = int(round(math.cos(math.radians(a)) * d, 0)) + self.x_fractal[-1]
-            y = int(round(math.sin(math.radians(a)) * d, 0)) + self.y_fractal[-1]
-            if x not in self.x_fractal and y not in self.y_fractal:
-                self.x_fractal.append(x)
-                self.y_fractal.append(y) 
+    def get_fractal_point(self, x, y):
+        p = random.randint(0, self.points-1)
+        a = get_angle(x, y, self.Xpoints[p], self.Ypoints[p])
+        while a == None:
+            p = random.randint(0, self.points-1)
+            a = get_angle(x, y, self.Xpoints[p], self.Ypoints[p])
 
-    def reset(self):
-        self.x_fractal = [self.x]
-        self.y_fractal = [self.y]
+        d = get_distance(x, y, self.Xpoints[p], self.Ypoints[p])
+        d = d/2
 
-    def save(self):
-        name = str(self.points)+"-"+str(self.top)+"-"+str(self.bot)+".txt"
-        file = open(name, "w")
-        for i in range(0, len(self.x_fractal)):
-            file.write(str(self.x_fractal[i])+" "+str(self.y_fractal[i])+" \n")
-        file.close
+        X = math.cos(math.radians(a))*d
+        Y = math.sin(math.radians(a))*d
+
+        return x+X, y+Y
+
+    def add_fractal_points(self):
+        i = 0
+        x = self.Xfractal[-1]
+        y = self.Yfractal[-1]
+        while i < self.fractal_points:
+            x, y = self.get_fractal_point(x, y)
+            x = int(round(x, 0))
+            y = int(round(y, 0))
+            print(x, y)
+            if not(x in self.Xfractal) and not(y in self.Yfractal):
+                self.Xfractal.append(x)
+                self.Yfractal.append(y)
+                i += 1
 
     def draw_fractal(self):
-        for i in range(1, len(self.x_fractal)):
-            #print(self.x_fractal[i], self.y_fractal[i])
-            pygame.draw.rect(self.surface, (0, 0, 0), [self.x_fractal[i], self.y_fractal[i], 1, 1])
-
+        for i in range(1, len(self.Xfractal)):
+            pygame.draw.rect(self.surface, (0, 0, 0), [self.Xfractal[i], self.Yfractal[i], 1, 1])
+    
     def draw_points(self):
-        for i in range(0, self.points):
-            pygame.draw.circle(self.surface, (0, 0, 0), [self.x_points[i], self.y_points[i]], 2)
+        for i in range(0, len(self.Xpoints)):
+            pygame.draw.circle(self.surface, (0, 0, 0), [self.Xpoints[i], self.Ypoints[i]], 3)
 
     def draw(self):
+        self.surface.fill((255, 255, 255))
         self.draw_fractal()
         self.draw_points()
+        pygame.display.update()
