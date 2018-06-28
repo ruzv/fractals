@@ -1,0 +1,21 @@
+exit - exits the terminal
+help - displays more info about commands. args - the command name
+comnd - displays all the commands or functions. args - "f" - functions "c" - commands "" - both
+add - adds two numbers. args - 1st num, 2nd num
+sub - subtract two numbers. args 1st num, 2nd num
+keys - displays all the keyboard key functions
+radius - sets the radius of the fractal. args - int
+setxy - sets the center x and y of the fractal. args - int int
+points - sets the amounth of coners of the fractal. args - int
+frpoints - sets the points added to the fractal per update. args - int
+color - sets the color of the batch of points to be added. args - int int int
+addp - adds the leatest batch or bathes to the main fractal
+undo - removes a batch. args - int
+list - prints all the batch indexes
+drawp - sets the draw_points to true||false. args 1||0
+draw - draws the fractal. args - f||o||b
+bgcol - sets the bg color. args int int int
+gen - generates the difined batch of points.
+clear - clears the batch.
+reset - resets the whole fractal
+winxy - sets the size of the window. args - int int 
