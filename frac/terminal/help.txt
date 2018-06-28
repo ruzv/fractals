@@ -1,4 +1,0 @@
-exit - exits the terminal
-help - displays more info about commands. args - the command name
-add - adds two numbers. args - 1st num, 2nd num
-sub - subtract two numbers. args 1st num, 2nd num

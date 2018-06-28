@@ -1,6 +1,0 @@
-exit - exits the terminal
-help - displays more info about commands. args - the command name
-comnd - displays all the commands or functions. args - "f" - functions "c" - commands "" - both
-add - adds two numbers. args - 1st num, 2nd num
-sub - subtract two numbers. args 1st num, 2nd num
-keys - displays all the keyboard key functions
